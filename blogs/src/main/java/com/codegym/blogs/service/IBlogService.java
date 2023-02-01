@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IBlogService<Blog> {
-    public Page<com.codegym.blogs.model.Blog> findAllPage(Pageable pageable);
+    public Page<Blog> findAllPage(Pageable pageable);
 
     List<com.codegym.blogs.model.Blog> findAll();
 
     Blog findById(Long id);
 
-    void save(com.codegym.blogs.model.Blog t);
+    void save(Blog blog);
 
     void remove(Long id);
 }

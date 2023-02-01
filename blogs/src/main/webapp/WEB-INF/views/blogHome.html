@@ -48,6 +48,10 @@
             <p th:text="${blog.getBlog()}"></p>
         </div>
     </div>
+    <button th:if="${blogs.hasPrevious()}"><a th:href="@{/blogs(page=${blogs.number}-1)}"><<<<<<</a></button>
+    <b th:text="${blogs.number} + 1"></b> / <b th:text="${blogs.totalPages}"></b>
+    <button th:if="${blogs.hasNext()}"><a th:href="@{/blogs(page=${blogs.number}+1)}">>>>>>></a></button>
+
 </div>
 
 <div class="jumbotron text-center" style="margin-bottom:0">
@@ -76,7 +80,7 @@
                     <p th:text="${blog.getBlog()}"></p>
                 </div>
                 <a type="button" class="btn btn-secondary" th:href="@{/edit/{id} (id=${blog.getIdBlog()})}">Edit</a>
-                <a type="button" class="btn btn-dark" th:href="@{/delete/ (id=${blog.getIdBlog()})}">Delete</a>
+                <a type="button" class="btn btn-dark" th:href="@{/delete/{id} (id=${blog.getIdBlog()})}">Delete</a>
             </div>
         </div>
 

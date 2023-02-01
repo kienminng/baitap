@@ -1,10 +1,14 @@
 package com.codegym.blogs.controller;
 
+import com.codegym.blogs.model.Account;
 import com.codegym.blogs.model.Blog;
 import com.codegym.blogs.model.Category;
+import com.codegym.blogs.service.AccountService;
 import com.codegym.blogs.service.BlogService;
 import com.codegym.blogs.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +25,9 @@ public class BlogController {
     CategoryService categoryService;
 
     @GetMapping("/blogs")
-    public ModelAndView showAll(){
+    public ModelAndView showAll(@RequestParam(defaultValue = "0") int page){
         ModelAndView modelAndView = new ModelAndView("blogHome");
-        modelAndView.addObject("blogs",blogService.findAll());
-        modelAndView.addObject("category",categoryService.findAll());
+        modelAndView.addObject("blogs",blogService.findAllPage(PageRequest.of(page, 2)));
         return modelAndView;
     }
 
@@ -76,6 +79,14 @@ public class BlogController {
         blogService.save(blog);
         return "redirect:/blogs";
     }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable long id){
+        blogService.remove(id);
+        return "redirect:/blogs";
+    }
+
+
 
 
 
